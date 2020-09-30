@@ -2,21 +2,18 @@ const { resolve } = require("path");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 /**
- * 缓存:
- *    babel缓存
- *        cacheDirectory: true,
- *        -->让第二次打包速度更快
+ * tree shaking: 去除无用代码
+ *  js的前提:1.必须使用ES6模块化 2.开启production
+ *  作用:减少代码体积
  *
- *    文件资源缓存
- *        1.hash  每次打包都会生成一个唯一的hash值。
- *                问题:因为js和css共用一个hash值,如果重新打包，所有缓存失效。(可能我只改变一个文件)
- *        2.chunkhash 根据chunk来生成的hash,如果打包来源一个chunk,那么hash就会一样。
- *                  问题:js和css的hash还是一样的。
- *                  因为css是在js中引入的。同属与一个chunk。
- *        3.contenthash 根据文件的内容来生成hash值。
- *        -->让代码上线运行缓存更好使用
+ * 在package.json中配置
+ *    "sideEffects":fasle (所有代码都没有副作用,都可以进行tree shaking)
+ *    问题:可能会把css/@babel/polyfill 给干掉
+ *    解决:"sideEffects": ["*.css","*.less"] 这些文件就不会进行tree shaking
  */
+
 
 module.exports = {
   entry: "./src/js/index.js",
