@@ -1,0 +1,1 @@
+#box1{width:100px;height:100px;background:red}#box1,#box2{display:flex}#box2{width:200px;height:200px;background:#9acd32;-webkit-backface-visibility:hidden;backface-visibility:hidden}
